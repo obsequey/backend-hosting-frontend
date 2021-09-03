@@ -1,4 +1,4 @@
-FROM node:12-alpine
+FROM node:10-alpine
 
 COPY ./ /app
 WORKDIR /app/user-list-front
