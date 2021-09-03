@@ -12,9 +12,9 @@ pipeline {
         sh 'docker build . -t "${REGISTRY_HOST}/${GIT_REPO_NAME}-${BRANCH_NAME}"'
         sh 'docker push ${REGISTRY_HOST}/${GIT_REPO_NAME}-${BRANCH_NAME}'
         sh 'docker stop ${GIT_REPO_NAME}-${BRANCH_NAME} || true'
-        sh ```
+        sh '''
           IMAGE_EXPOSED_PORT="docker inspect backend-hosting-frontend-master --format='{{json .Config.ExposedPorts}}' | egrep [0-9]+ -o | head -1"
-        ```
+        '''
         sh 'docker run -d --rm --name ${GIT_REPO_NAME}-${BRANCH_NAME} -p ${IMAGE_EXPOSED_PORT} ${REGISTRY_HOST}/${GIT_REPO_NAME}-${BRANCH_NAME}'
         sh '''
 
